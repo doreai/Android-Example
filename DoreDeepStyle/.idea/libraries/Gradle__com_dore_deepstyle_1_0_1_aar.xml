@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: com.dore:deepstyle:1.0.1@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../../gradle/caches/transforms-2/files-2.1/18339dd3eda04396cb5b7871f1ee49c6/deepstyle-1.0.1/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../../../gradle/caches/transforms-2/files-2.1/18339dd3eda04396cb5b7871f1ee49c6/deepstyle-1.0.1/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

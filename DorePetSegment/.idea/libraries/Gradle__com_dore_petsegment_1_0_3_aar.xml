@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: com.dore:petsegment:1.0.3@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../../gradle/caches/transforms-2/files-2.1/81614dce94904a8cd6cccb751c0ec228/petsegment-1.0.3/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../../../gradle/caches/transforms-2/files-2.1/81614dce94904a8cd6cccb751c0ec228/petsegment-1.0.3/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

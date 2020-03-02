@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Dore HairSegment Demo</string>
+    <string name="DoreLogo">DoreAI Logo</string>
+    <string name="SegmentListText">Mask Segment</string>
+    <string name="imgout_view">display output</string>
+    <string name="lic_key">ck6SVzPtjrYZYN/fwQSjMWzjyv5XWg5HvDWe1WO3kogqYLCjB6cR4LM15KbQ/+DoKyr5KgoBZB9EwpuPd9dC+imx5Vjd8Y0DurtB6VNbGdFJK6ilZlBXq2+MBUIX6JIzlypz1M0aK49Hl7IougejqMIHwGNwT8wcwSbIKXXck7K/wwp9+CQlCULX1QvlpgmhM2QdaXdUU5KfzBusdWwRuQ==</string>
+    <string name="BrowseFile">Image From Gallery</string>
+    <string name="RunSegment">Run Segment</string>
+    <string name="ImaeDesc">ImaeDesc</string>
+    <string name="ChangeRandomColor">Change Random Color</string>
+</resources>

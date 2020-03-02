@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Dore PetSegmentLite Demo</string>
+    <string name="DoreLogo">DoreAI Logo</string>
+    <string name="SegmentListText">Mask Segment</string>
+    <string name="imgout_view">display output</string>
+    <string name="lic_key">rQq76i6aBH28Vj094pF6HLqOb2oFcaaTk5HJSJZhd6wYpHp52HUJHqvjtFkOWJ6407h5gEoHt40PuyRNuMgvnsyS6aN8TkrzRjpbYoYGpNPwUP6jPR78MvS2yNdks+PCOqEZITrzbLARpMZ6AVc+dSQKa1GyflUkI4yWrL+ZFbhauS8RxVtnwWdQM9wES+ANLtZ0K5MNwYhMe+7AqeIxCQfCpMX0qr4L/QG7p+7rgz8=</string>
+    <string name="BrowseFile">Image From Gallery</string>
+    <string name="RunSegment">Run Segment</string>
+    <string name="ImaeDesc">ImaeDesc</string>
+</resources>

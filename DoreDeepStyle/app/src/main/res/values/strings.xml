@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Dore DeepStyle Demo</string>
+    <string name="DoreLogo">DoreAI Logo</string>
+    <string name="SegmentListText">Mask Segment</string>
+    <string name="imgout_view">display output</string>
+    <string name="lic_key">T5aGNzWL7zBeq6MiuOB9N3FzdlejK0jXyG67iwGQj6SBf9rtGgg5yJ+7NNG/DJ1+8ef+hEmXS7rMONGEs4RuQsmCZBhqZFd6kRsHblCs8/emPqiPjrzruEWOOgDokh8LpPDqn+wKJMjBh6e/MuoHoUHoAIun/mJf+tYAKYMHc18Lo8xr4fC+P2wlMvREQxZAWj6WZQiqyF0S6VIXL2VmsA==</string>
+    <string name="BrowseFile">Image From Gallery</string>
+    <string name="RunSegment">Run Segment</string>
+    <string name="ImaeDesc">ImaeDesc</string>
+    <string name="ChangeRandomColor">Change Random Color</string>
+</resources>

@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Dore EmotionRecognition</string>
+    <string name="DoreLogo">DoreAI Logo</string>
+    <string name="SegmentListText">Mask Segment</string>
+    <string name="imgout_view">display output</string>
+    <string name="lic_key">6lw072nic3Heo/K3uq7ydMzB2eRXaD/4akDxvODBuQMQdKqXKm8ghR2UhZRufZGaab6Iq1oG129dY6E9swsr4M+yYws4O3+hOxyD5ins0s0vIt7P5zPld6Xzm/m0gpvmLFmAmhrSrL8HAS9uymwSW2mx8aQ0zHnr3MIvmcedhGXpZyNUonmxJU0oOqCC71TtkdiPvKSy3HMW45Xf5qj8VZ90Go3YgGzwKwqHzPnICkI=</string>
+    <string name="BrowseFile">Image From Gallery</string>
+    <string name="DetectEmotion" translatable="false">Detect Emotion</string>
+    <string name="ImaeDesc">ImaeDesc</string>
+    <string name="ChangeRandomColor">Change Random Color</string>
+    <string name="EmotionText">Emotion Result Text</string>
+</resources>

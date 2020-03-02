@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: com.dore:emotionrecognition:1.0.1@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../../gradle/caches/transforms-2/files-2.1/1bbb3fca3d1a95f4570abcfa601121a1/emotionrecognition-1.0.1/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../../../gradle/caches/transforms-2/files-2.1/1bbb3fca3d1a95f4570abcfa601121a1/emotionrecognition-1.0.1/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

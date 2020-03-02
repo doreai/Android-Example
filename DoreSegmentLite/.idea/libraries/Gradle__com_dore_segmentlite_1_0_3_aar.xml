@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: com.dore:segmentlite:1.0.3@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../../gradle/caches/transforms-2/files-2.1/20fe7d9d45cb85224317addc59a6b5d1/segmentlite-1.0.3/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../../../gradle/caches/transforms-2/files-2.1/20fe7d9d45cb85224317addc59a6b5d1/segmentlite-1.0.3/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
