@@ -2,31 +2,30 @@ package com.dore.hairsegmentlitedemo
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.graphics.SurfaceTexture
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
-import android.view.TextureView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.LifecycleOwner
 import com.dore.coreai.vision.DoreImage
 import kotlinx.android.synthetic.main.mask_camera_view.*
 import android.view.Menu
 import android.view.MenuItem
+import androidx.camera.lifecycle.ProcessCameraProvider
 import com.dore.hairsegmentlite.HairSegmentLiteListener
 import com.dore.hairsegmentlite.HairSegmentLiteManager
-
+import kotlinx.android.synthetic.main.haircolor_change_view.*
+import java.util.concurrent.Executors
 
 
 val permissions = arrayOf(android.Manifest.permission.CAMERA)
 
-class MaskCameraView : AppCompatActivity() , TextureView.SurfaceTextureListener,
+class MaskCameraView : AppCompatActivity() ,
     ActivityCompat.OnRequestPermissionsResultCallback {
 
     private val REQUEST_CAMERA_PERMISSION = 0
-    private var lensFacing = CameraX.LensFacing.FRONT
     private var imageCapture: ImageCapture? = null
     private val bEngine: HairSegmentLiteManager = HairSegmentLiteManager()
 
@@ -120,36 +119,57 @@ class MaskCameraView : AppCompatActivity() , TextureView.SurfaceTextureListener,
     private fun bindCamera(){
         setContentView(R.layout.mask_camera_view)
 
-        CameraX.unbindAll()
+        val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
+        cameraProviderFuture.addListener(Runnable {
+            // Used to bind the lifecycle of cameras to the lifecycle owner
+            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
 
-        // Preview config for the camera
-        val previewConfig = PreviewConfig.Builder()
-            .setLensFacing(lensFacing)
-            .build()
+            // Preview
+            val preview = Preview.Builder()
+                .build()
+                .also {
+                    it.setSurfaceProvider(viewFinder2.surfaceProvider)
+                }
 
-        val preview = Preview(previewConfig)
+            imageCapture = ImageCapture.Builder()
+                .build()
 
-         //Image capture config which controls the Flash and Lens
-        val imageCaptureConfig = ImageCaptureConfig.Builder()
-            .setTargetRotation(windowManager.defaultDisplay.rotation)
-            .setLensFacing(lensFacing)
-            .setFlashMode(FlashMode.ON)
-            .build()
+            val imageAnalyzer = ImageAnalysis.Builder()
+                .build()
+                .also {
+                    it.setAnalyzer (Executors.newSingleThreadExecutor(), ImageAnalysis.Analyzer { image ->
+                        runOnUiThread {
+                            val bitmap: Bitmap = viewFinder2.bitmap!!
+                            if (isLibLoaded) {
+                                val dimage = DoreImage.fromBitmap(bitmap)
+                                var result = bEngine.run(dimage)
+                                outImg.setImageBitmap(result?.getMask(1f))  //alpha value 0.1 to 1
+                                image.close();
+                            }
+                            bitmap?.recycle()
+                        }
+                    })
+                }
 
-        imageCapture = ImageCapture(imageCaptureConfig)
 
-        // The view that displays the preview
-        val textureView: TextureView = findViewById(R.id.tex_view)
-        textureView.surfaceTextureListener = this
 
-        // Handles the output data of the camera
-        preview.setOnPreviewOutputUpdateListener { previewOutput ->
-            // Displays the camera image in our preview view
-            textureView.surfaceTexture = previewOutput.surfaceTexture
-        }
+            // Select back camera as a default
+            val cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
 
-        // Bind the camera to the lifecycle
-        CameraX.bindToLifecycle(this as LifecycleOwner, imageCapture, preview)
+            try {
+                // Unbind use cases before rebinding
+                cameraProvider.unbindAll()
+
+
+                // Bind use cases to camera
+                cameraProvider.bindToLifecycle(
+                    this, cameraSelector, preview, imageCapture, imageAnalyzer)
+
+            } catch(exc: Exception) {
+
+            }
+
+        }, ContextCompat.getMainExecutor(this))
     }
 
     override fun onStart() {
@@ -165,31 +185,7 @@ class MaskCameraView : AppCompatActivity() , TextureView.SurfaceTextureListener,
 
     }
 
-    override fun onSurfaceTextureAvailable(surfaceTexture: SurfaceTexture, i: Int, i1: Int) {
-        // Perform action when surfaceTexture is available. For example, start camera etc.
 
-    }
-
-    override fun onSurfaceTextureSizeChanged(surfaceTexture: SurfaceTexture, i: Int, i1: Int) {
-        // Ignored, Camera does all the work for us
-    }
-
-    override fun onSurfaceTextureDestroyed(surfaceTexture: SurfaceTexture): Boolean {
-        // Perform action when surfaceTexture is destroyed. For example, stop camera, release resources etc.
-        return true
-    }
-
-    override fun onSurfaceTextureUpdated(surfaceTexture: SurfaceTexture) {
-
-        if(isLibLoaded) {
-            val dimage = DoreImage.fromBitmap(tex_view.bitmap)
-            var result = bEngine.run(dimage)
-
-            runOnUiThread {
-                outImg.setImageBitmap(result?.getMask(1f))  //alpha value 0.1 to 1
-            }
-        }
-    }
 
 
 

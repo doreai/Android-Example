@@ -7,29 +7,32 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.TextureView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.*
+import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.LifecycleOwner
 import com.dore.coreai.vision.DoreImage
 import com.dore.hairsegmentlite.HairSegmentLiteListener
 import kotlinx.android.synthetic.main.haircolor_change_view.*
 import com.dore.hairsegmentlite.HairSegmentLiteManager
 import java.util.*
+import java.util.concurrent.Executors
 
 
-class HairColorChangeView : AppCompatActivity() , TextureView.SurfaceTextureListener,
+class HairColorChangeView : AppCompatActivity() ,
     ActivityCompat.OnRequestPermissionsResultCallback {
 
     private val REQUEST_CAMERA_PERMISSION = 0
-    private var lensFacing = CameraX.LensFacing.FRONT
     private var imageCapture: ImageCapture? = null
     private val bEngine: HairSegmentLiteManager = HairSegmentLiteManager()
     private var cur_color: Int = Color.GREEN
 
     private var isLibLoaded = false
+
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -133,38 +136,71 @@ class HairColorChangeView : AppCompatActivity() , TextureView.SurfaceTextureList
         setContentView(R.layout.haircolor_change_view)
         btnEvent()
 
-        CameraX.unbindAll()
+        val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
+        cameraProviderFuture.addListener(Runnable {
+            // Used to bind the lifecycle of cameras to the lifecycle owner
+            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
 
-        // Preview config for the camera
-        val previewConfig = PreviewConfig.Builder()
-            .setLensFacing(lensFacing)
-            .build()
+            // Preview
+            val preview = Preview.Builder()
+                .build()
+                .also {
+                    it.setSurfaceProvider(viewFinder1.surfaceProvider)
+                }
 
-        val preview = Preview(previewConfig)
+            imageCapture = ImageCapture.Builder()
+                .build()
 
-        //Image capture config which controls the Flash and Lens
-        val imageCaptureConfig = ImageCaptureConfig.Builder()
-            .setTargetRotation(windowManager.defaultDisplay.rotation)
-            .setLensFacing(lensFacing)
-            .setFlashMode(FlashMode.ON)
-            .build()
+            val imageAnalyzer = ImageAnalysis.Builder()
+                .build()
+                .also {
+                    it.setAnalyzer (Executors.newSingleThreadExecutor(), ImageAnalysis.Analyzer { image ->
 
-        imageCapture = ImageCapture(imageCaptureConfig)
+                       runOnUiThread {
+                            val bitmap: Bitmap = viewFinder1.bitmap!!
+                            if (isLibLoaded) {
+                                val dimage = DoreImage.fromBitmap(bitmap)
+                                var result = bEngine.run(dimage)
+                                val mask_0 = result?.getMask(0.4f, cur_color)
+                                val result_out =
+                                    bEngine.clor_blend(bitmap, mask_0, PorterDuff.Mode.DARKEN)
 
-        // The view that displays the preview
-        val textureView: TextureView = findViewById(R.id.bg_tex_view)
-        textureView.surfaceTextureListener = this
+                                bg_outImg.setImageBitmap(result_out)
+                                image.close();
+                            }
+                            bitmap?.recycle()
+                       }
 
-        // Handles the output data of the camera
-        preview.setOnPreviewOutputUpdateListener { previewOutput ->
-            // Displays the camera image in our preview view
-            textureView.surfaceTexture = previewOutput.surfaceTexture
+                    })
+                }
+
+
+
+            // Select back camera as a default
+            val cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
+
+            try {
+                // Unbind use cases before rebinding
+                cameraProvider.unbindAll()
+
+
+                // Bind use cases to camera
+                cameraProvider.bindToLifecycle(
+                    this, cameraSelector, preview, imageCapture, imageAnalyzer)
+
+            } catch(exc: Exception) {
+
+            }
+
+        }, ContextCompat.getMainExecutor(this))
+
+
+    }
+
+    private class frameAnalyzer : ImageAnalysis.Analyzer {
+        override fun analyze(image: ImageProxy) {
+            Log.d("Sandbox", "### Would analyze the image here ...")
         }
-
-        // Bind the camera to the lifecycle
-        CameraX.bindToLifecycle(this as LifecycleOwner, imageCapture, preview)
-
-
     }
 
     override fun onStart() {
@@ -180,34 +216,6 @@ class HairColorChangeView : AppCompatActivity() , TextureView.SurfaceTextureList
 
     }
 
-    override fun onSurfaceTextureAvailable(surfaceTexture: SurfaceTexture, i: Int, i1: Int) {
-        // Perform action when surfaceTexture is available. For example, start camera etc.
 
-    }
-
-    override fun onSurfaceTextureSizeChanged(surfaceTexture: SurfaceTexture, i: Int, i1: Int) {
-        // Ignored, Camera does all the work for us
-    }
-
-    override fun onSurfaceTextureDestroyed(surfaceTexture: SurfaceTexture): Boolean {
-        // Perform action when surfaceTexture is destroyed. For example, stop camera, release resources etc.
-        return true
-    }
-
-    override fun onSurfaceTextureUpdated(surfaceTexture: SurfaceTexture) {
-
-        if(isLibLoaded) {
-            val dimage = DoreImage.fromBitmap(bg_tex_view.bitmap)
-            var result = bEngine.run(dimage)
-
-
-            val mask_0 = result?.getMask(0.4f, cur_color)
-            val result_out = bEngine.clor_blend(bg_tex_view.bitmap,mask_0,PorterDuff.Mode.DARKEN)
-
-            runOnUiThread {
-                bg_outImg.setImageBitmap(result_out)
-            }
-        }
-    }
 
 }

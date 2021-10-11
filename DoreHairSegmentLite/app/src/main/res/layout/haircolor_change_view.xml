@@ -3,21 +3,17 @@
     android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical">
 
 
-    <TextureView
-        android:id="@+id/bg_tex_view"
+    <androidx.camera.view.PreviewView
+        android:id="@+id/viewFinder1"
         android:layout_width="match_parent"
-
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-
-
          />
 
     <ImageView
         android:id="@+id/bg_outImg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
 
 
         android:contentDescription="@string/imgout_view" />

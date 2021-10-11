@@ -1,8 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.dore:hairsegmentlite:1.0.4@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../../../gradle/caches/transforms-2/files-2.1/6eab514e41f2040f24d3a70c5d65f37b/hairsegmentlite-1.0.4/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../../../gradle/caches/transforms-2/files-2.1/6eab514e41f2040f24d3a70c5d65f37b/hairsegmentlite-1.0.4/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8702c389fda0edfe60c561287cb8d417/hairsegmentlite-1.0.4/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8702c389fda0edfe60c561287cb8d417/hairsegmentlite-1.0.4/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8702c389fda0edfe60c561287cb8d417/hairsegmentlite-1.0.4/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
