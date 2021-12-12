@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Dore Cartoon Demo</string>
+    <string name="DoreLogo">DoreAI Logo</string>
+    <string name="SegmentListText">Mask Segment</string>
+    <string name="imgout_view">display output</string>
+    <string name="lic_key">lv/G8ntyKLrmNcVhpvXoAXMR5EzHiEAiFXx95ctNG8H64siEQOqWjEem1yLAU3DjTeem0p8iN1PvSpzmhoJAZym5lIS9YDm7ElEKB6aTYGoSvTjyt8ue8VFg6Yb0ui3/KYeKV42Rlv3WFfSbqA5PJp9sbvx72vHQZ2odVbZZSrwGJRDb2HhIVtljK60BZE0CedMl1t+klVLwuswzQbhB8g==</string>
+    <string name="BrowseFile">Image From Gallery</string>
+    <string name="RunSegment">Convert to Cartoon</string>
+    <string name="ImaeDesc">ImaeDesc</string>
+    <string name="ChangeRandomColor">Change Random Color</string>
+</resources>
