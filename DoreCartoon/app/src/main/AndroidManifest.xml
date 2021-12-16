@@ -29,13 +29,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.dore.cartoondemo.MaskCameraView" android:label="" >
 
-          </activity>
 
-        <activity android:name="com.dore.cartoondemo.HairColorChangeView" android:label="" >
-
-        </activity>
+       
 
         <activity android:name="com.dore.cartoondemo.ImageCartoonView" android:label="" >
 

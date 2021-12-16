@@ -154,7 +154,7 @@ class ImageCartoonView : AppCompatActivity() {
         btnRun.isEnabled = false
 
         thread() {
-             val result = bEngine.run(bm, CartoonVariant.High)!!
+             val result = bEngine.run(bm, CartoonVariant.Standard)!!
              update_result(result!!)
         }
 

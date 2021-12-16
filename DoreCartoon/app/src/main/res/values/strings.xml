@@ -3,7 +3,7 @@
     <string name="DoreLogo">DoreAI Logo</string>
     <string name="SegmentListText">Mask Segment</string>
     <string name="imgout_view">display output</string>
-    <string name="lic_key">lv/G8ntyKLrmNcVhpvXoAXMR5EzHiEAiFXx95ctNG8H64siEQOqWjEem1yLAU3DjTeem0p8iN1PvSpzmhoJAZym5lIS9YDm7ElEKB6aTYGoSvTjyt8ue8VFg6Yb0ui3/KYeKV42Rlv3WFfSbqA5PJp9sbvx72vHQZ2odVbZZSrwGJRDb2HhIVtljK60BZE0CedMl1t+klVLwuswzQbhB8g==</string>
+    <string name="lic_key">1ir3bdFjtAyQtgIF7Zm+qc1pVMnFj8fUOmR9QkZr5dGXs591Dt5MgcP9UyOw95NfwhsLVa2aDKgh1BKedtG/spotHrHOEsQsY8XkQ/9/nGm6aFz3cZBeHm6s+clCimlcjN2AZPYbijnQ9te+LH8YrKvhjrDtV60sntZr5bI74ru1WnEAdPhu953rzo8VPtyKYm8vWT95wKrx7nNPifeNGg==</string>
     <string name="BrowseFile">Image From Gallery</string>
     <string name="RunSegment">Convert to Cartoon</string>
     <string name="ImaeDesc">ImaeDesc</string>
