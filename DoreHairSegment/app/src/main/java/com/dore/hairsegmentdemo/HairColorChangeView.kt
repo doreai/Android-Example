@@ -29,14 +29,17 @@ class HairColorChangeView : AppCompatActivity() , TextureView.SurfaceTextureList
     private var lensFacing = CameraX.LensFacing.FRONT
     private var imageCapture: ImageCapture? = null
     private val bEngine: HairSegmentManager = HairSegmentManager()
-    private var cur_color: Int = Color.GREEN
+    private var cur_color: Int = Color.BLUE
 
+    private val minThreshold = 0.9f  //change min Threshold Up to 2.0f
+    private val maxThreshold = 1.01f //change max Threshold Up to 4.0f
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
 
         val lickeycode = getString(R.string.lic_key)
-        bEngine.init_data(this,lickeycode)
+
+        bEngine.init_data(this,lickeycode, minThreshold)
 
 
 
@@ -181,11 +184,25 @@ class HairColorChangeView : AppCompatActivity() , TextureView.SurfaceTextureList
         val dimage =  DoreImage.fromBitmap(bg_tex_view.bitmap)
 
         var result = bEngine.run(dimage)
-        val mask_0 = result!!.getMask(0.4f, cur_color)
-        val result_out = bEngine.clor_blend(bg_tex_view.bitmap,mask_0,PorterDuff.Mode.DARKEN)
+        val mask_0 = result!!.getHairSegmentMask(0.4f, cur_color, maxThreshold)
+        val result_out = bEngine.clor_blend(bg_tex_view.bitmap,mask_0,PorterDuff.Mode.ADD)
         runOnUiThread {
             bg_outImg.setImageBitmap(result_out)
         }
     }
+
+    public fun hairsegment_clor_blend(orgImg: Bitmap, maskImg : Bitmap?, imgBlendMode: PorterDuff.Mode) : Bitmap?{
+
+        val mask = Bitmap.createScaledBitmap(maskImg as Bitmap, orgImg.width, orgImg.height, true)
+        val result_out = Bitmap.createBitmap(mask.getWidth(), mask.getHeight(), Bitmap.Config.ARGB_8888)
+        val mCanvas = Canvas(result_out)
+        val paint = Paint(Paint.ANTI_ALIAS_FLAG)
+        paint.xfermode = PorterDuffXfermode(imgBlendMode)
+        mCanvas.drawBitmap(orgImg, 0f, 0f, null)
+        mCanvas.drawBitmap(mask, 0f, 0f, paint)
+        paint.xfermode = null
+        return result_out
+    }
+
 
 }

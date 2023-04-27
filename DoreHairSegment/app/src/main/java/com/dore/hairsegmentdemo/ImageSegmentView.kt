@@ -1,23 +1,28 @@
 package com.dore.hairsegmentdemo
 
 import android.content.Intent
+import android.graphics.*
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.dore.coreai.vision.DoreImage
+import com.dore.coreai.vision.DoreVisionSegmentResult
+import com.dore.hairsegment.HairSegmentManager
+import kotlinx.android.synthetic.main.haircolor_change_view.*
 import kotlinx.android.synthetic.main.image_segment_view.*
 import java.io.IOException
-import android.graphics.drawable.BitmapDrawable
-import com.dore.hairsegment.HairSegmentManager
-
 
 
 class ImageSegmentView : AppCompatActivity() {
 
     private val bEngine: HairSegmentManager = HairSegmentManager()
     private val GALLERY = 1
+
+    private val minThreshold = 0.9f  //change min Threshold Up to 2.0f
+    private val maxThreshold = 1.01f //change max Threshold Up to 4.0f
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +32,7 @@ class ImageSegmentView : AppCompatActivity() {
         init_button_event()
 
         val lickeycode = getString(R.string.lic_key)
-        bEngine.init_data(this,lickeycode)
+        bEngine.init_data(this,lickeycode, minThreshold)
 
 
     }
@@ -107,12 +112,15 @@ class ImageSegmentView : AppCompatActivity() {
         var result = bEngine.run(dimage)
 
         runOnUiThread {
-            browse_img_preview.setImageBitmap(result?.transparentImage)
+            val mask_0 = result!!.getHairSegmentMask(0.4f, Color.BLUE, maxThreshold)
+            val result_out = bEngine.clor_blend(bm,mask_0,PorterDuff.Mode.ADD)
+            browse_img_preview.setImageBitmap(result_out)
             btnRun.isEnabled = false
         }
 
 
     }
+
 
 
 

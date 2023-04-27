@@ -2,6 +2,7 @@ package com.dore.hairsegmentdemo
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.graphics.SurfaceTexture
 import android.os.Bundle
 import android.view.TextureView
@@ -19,6 +20,7 @@ import com.dore.hairsegment.HairSegmentManager
 
 val permissions = arrayOf(android.Manifest.permission.CAMERA)
 
+
 class MaskCameraView : AppCompatActivity() , TextureView.SurfaceTextureListener,
     ActivityCompat.OnRequestPermissionsResultCallback {
 
@@ -27,13 +29,15 @@ class MaskCameraView : AppCompatActivity() , TextureView.SurfaceTextureListener,
     private var imageCapture: ImageCapture? = null
     private val bEngine: HairSegmentManager = HairSegmentManager()
 
+    private val minThreshold = 0.9f  //change min Threshold Up to 2.0f
+    private val maxThreshold = 1.01f //change max Threshold Up to 4.0f
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
 
         val lickeycode = getString(R.string.lic_key)
-        bEngine.init_data(this,lickeycode)
+        bEngine.init_data(this,lickeycode, minThreshold)
 
     }
 
@@ -163,7 +167,7 @@ class MaskCameraView : AppCompatActivity() , TextureView.SurfaceTextureListener,
           var result = bEngine.run(dimage)
 
           runOnUiThread {
-            outImg.setImageBitmap(result?.getMask(1f))  //alpha value 0.1 to 1
+            outImg.setImageBitmap(result?.getHairSegmentMask(1f,maxThreshold))
           }
     }
 
