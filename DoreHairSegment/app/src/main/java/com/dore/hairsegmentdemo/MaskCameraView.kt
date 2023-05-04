@@ -167,7 +167,7 @@ class MaskCameraView : AppCompatActivity() , TextureView.SurfaceTextureListener,
           var result = bEngine.run(dimage)
 
           runOnUiThread {
-              outImg.setImageBitmap(result?.getMask(1f))  //For m2 model
+              outImg.setImageBitmap(result?.getMask(1f))  //For m1 model
             //outImg.setImageBitmap(result?.getHairSegmentMask(1f,maxThreshold))  //For m2 model
           }
     }
