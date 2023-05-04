@@ -21,8 +21,8 @@ class ImageSegmentView : AppCompatActivity() {
     private val bEngine: HairSegmentManager = HairSegmentManager()
     private val GALLERY = 1
 
-    private val minThreshold = 0.9f  //change min Threshold Up to 2.0f
-    private val maxThreshold = 1.01f //change max Threshold Up to 4.0f
+    private val minThreshold = 0.4f  //change min Threshold From 0.1f to 0.6f for M1 model,  change min Threshold From 0.9 to 2.0f for M2 model
+    private val maxThreshold = 1.01f //Only for M2 model - change max Threshold From 1.0f to 2.5f for M2 model
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +32,7 @@ class ImageSegmentView : AppCompatActivity() {
         init_button_event()
 
         val lickeycode = getString(R.string.lic_key)
-        bEngine.init_data(this,lickeycode, minThreshold)
+        bEngine.init_data(this,lickeycode, minThreshold, "M1")   //model_code : M1|M2
 
 
     }
@@ -112,7 +112,8 @@ class ImageSegmentView : AppCompatActivity() {
         var result = bEngine.run(dimage)
 
         runOnUiThread {
-            val mask_0 = result!!.getHairSegmentMask(0.4f, Color.BLUE, maxThreshold)
+            val mask_0 = result!!.getMask(0.4f, Color.BLUE)  //For M2 model
+            //val mask_0 = result!!.getHairSegmentMask(0.4f, Color.BLUE, maxThreshold)  //For M2 model
             val result_out = bEngine.clor_blend(bm,mask_0,PorterDuff.Mode.ADD)
             browse_img_preview.setImageBitmap(result_out)
             btnRun.isEnabled = false

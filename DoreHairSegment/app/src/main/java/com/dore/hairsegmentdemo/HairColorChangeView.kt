@@ -31,15 +31,15 @@ class HairColorChangeView : AppCompatActivity() , TextureView.SurfaceTextureList
     private val bEngine: HairSegmentManager = HairSegmentManager()
     private var cur_color: Int = Color.BLUE
 
-    private val minThreshold = 0.9f  //change min Threshold Up to 2.0f
-    private val maxThreshold = 1.01f //change max Threshold Up to 4.0f
+    private val minThreshold = 0.4f  //change min Threshold From 0.1f to 0.6f for M1 model,  change min Threshold From 0.9 to 2.0f for M2 model
+    private val maxThreshold = 1.01f //Only for M2 model - change max Threshold From 1.0f to 2.5f for M2 model
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
 
         val lickeycode = getString(R.string.lic_key)
 
-        bEngine.init_data(this,lickeycode, minThreshold)
+        bEngine.init_data(this,lickeycode, minThreshold, "M1") //model_code : M1|M2
 
 
 
@@ -138,13 +138,13 @@ class HairColorChangeView : AppCompatActivity() , TextureView.SurfaceTextureList
         imageCapture = ImageCapture(imageCaptureConfig)
 
         // The view that displays the preview
-        val textureView: TextureView = findViewById(R.id.bg_tex_view)
+        var textureView: TextureView = findViewById(R.id.bg_tex_view)
         textureView.surfaceTextureListener = this
 
         // Handles the output data of the camera
         preview.setOnPreviewOutputUpdateListener { previewOutput ->
             // Displays the camera image in our preview view
-            textureView.surfaceTexture = previewOutput.surfaceTexture
+            textureView.setSurfaceTexture(previewOutput.surfaceTexture)
         }
 
         // Bind the camera to the lifecycle
@@ -184,8 +184,9 @@ class HairColorChangeView : AppCompatActivity() , TextureView.SurfaceTextureList
         val dimage =  DoreImage.fromBitmap(bg_tex_view.bitmap)
 
         var result = bEngine.run(dimage)
-        val mask_0 = result!!.getHairSegmentMask(0.4f, cur_color, maxThreshold)
-        val result_out = bEngine.clor_blend(bg_tex_view.bitmap,mask_0,PorterDuff.Mode.ADD)
+        val mask_0 = result!!.getMask(0.4f, cur_color)  //For M1 model
+        //val mask_0 = result!!.getHairSegmentMask(0.4f, cur_color, maxThreshold)  //For M2 model
+        val result_out = bg_tex_view.bitmap?.let { bEngine.clor_blend(it,mask_0,PorterDuff.Mode.ADD) }
         runOnUiThread {
             bg_outImg.setImageBitmap(result_out)
         }

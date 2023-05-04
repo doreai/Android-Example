@@ -81,14 +81,14 @@
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dd40ee42862786afd462fdb5d4cc5918/constraintlayout-1.1.3-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.constraintlayout/constraintlayout-solver/1.1.3/54abe9ffb22cc9019b0b6fcc10f185cc4e67b34e/constraintlayout-solver-1.1.3.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6a6e923fa39645c4e4d8b29c5f7791dc/hairsegment-1.0.6-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3e8ca84391911892ac8a18c81ba61b58/hairsegment-1.0.7-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-2/files-2.1/fb2b7a6534f7c0728400f779d938c597/coreai-1.0.3-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4aa65a9eb169eb5f25ce7e38609ef4d4/tensorflow-lite-1.0.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d567d7cd89f387332e40dced18d3e0fd/tensorflow-lite-gpu-1.0.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4ee7cd5f39112a6c63a33d09e2afaf94/annotation-experimental-1.0.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.auto.value/auto-value-annotations/1.6.3/b88c1bb7f149f6d2cc03898359283e57b08f39cc/auto-value-annotations-1.6.3.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/listenablefuture/1.0/c949a840a6acbc5268d088e47b04177bf90b3cad/listenablefuture-1.0.jar</arg>
-                <arg>/Volumes/SamDataDisk/Applications/AndroidSDK/platforms/android-29/android.jar</arg>
+                <arg>/Volumes/SamDataDisk/Applications/AndroidSDK/platforms/android-33/android.jar</arg>
               </args>
             </stringArg>
             <stringArg name="destination" arg="$MODULE_DIR$/../../../app/build/tmp/kotlin-classes/debugAndroidTest" />
@@ -140,7 +140,7 @@
       <sourceFolder url="file://$MODULE_DIR$/../../../app/src/androidTest/java" isTestSource="true" />
     </content>
     <content url="file://$MODULE_DIR$/../../../app/src/androidTestDebug" />
-    <orderEntry type="jdk" jdkName="Android API 29 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 33 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="TEST" name="Gradle: junit:junit:4.12" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-integration:1.3" level="project" />
@@ -200,7 +200,7 @@
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.interpolator:interpolator:1.0.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.test.espresso:espresso-idling-resource:3.2.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.constraintlayout:constraintlayout:1.1.3@aar" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: com.dore:hairsegment:1.0.6@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.dore:hairsegment:1.0.7@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.dore:coreai:1.0.3@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.dore:tensorflow-lite:1.0.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.dore:tensorflow-lite-gpu:1.0.0@aar" level="project" />
